@@ -10,9 +10,22 @@
 		335EE1992D789936009193DA /* musicorum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = musicorum.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		333C37B12D78A03400D27C82 /* Exceptions for "musicorum" folder in "musicorum" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 335EE1982D789936009193DA /* musicorum */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		335EE19B2D789936009193DA /* musicorum */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				333C37B12D78A03400D27C82 /* Exceptions for "musicorum" folder in "musicorum" target */,
+			);
 			path = musicorum;
 			sourceTree = "<group>";
 		};
@@ -254,7 +267,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"musicorum/Preview Content\"";
 				DEVELOPMENT_TEAM = 4426KQYWBU;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = musicorum/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -283,7 +297,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"musicorum/Preview Content\"";
 				DEVELOPMENT_TEAM = 4426KQYWBU;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = musicorum/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

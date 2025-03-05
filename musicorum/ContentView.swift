@@ -1,61 +1,49 @@
-//
-//  ContentView.swift
-//  musicorum
-//
-//  Created by Diogo on 05/03/2025.
-//
-
-import SwiftUI
+import Foundation
 import SwiftData
+import SwiftUI
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @State private var authViewModel: AuthViewModel
+
+    init(modelContext: ModelContext) {
+        _authViewModel = State(initialValue: AuthViewModel(modelContext: modelContext))
+    }
 
     var body: some View {
         NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
+            if authViewModel.isAuthenticated {
+                VStack {
+                    Text("Welcome, \(authViewModel.username)!")
+                        .font(.title)
                 }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
+            } else {
+                VStack {
+                    Text("Connect to Last.fm")
+                        .font(.title)
+
+                    Button("Login with Last.fm") {
+                        authViewModel.startAuth()
                     }
+                    .buttonStyle(.borderedProminent)
                 }
             }
         } detail: {
             Text("Select an item")
         }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
+        .onOpenURL { url in
+            Task {
+                await authViewModel.handleCallback(url: url)
             }
         }
     }
 }
 
 #Preview {
-    ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+    do {
+        let container = try ModelContainer(for: LastFMAuth.self)
+        return ContentView(modelContext: ModelContext(container))
+    } catch {
+        fatalError("Failed to create ModelContainer: \(error)")
+    }
 }

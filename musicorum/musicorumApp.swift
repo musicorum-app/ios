@@ -1,18 +1,11 @@
-//
-//  musicorumApp.swift
-//  musicorum
-//
-//  Created by Diogo on 05/03/2025.
-//
-
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 @main
 struct musicorumApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            LastFMAuth.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
@@ -25,7 +18,7 @@ struct musicorumApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(modelContext: sharedModelContainer.mainContext)
         }
         .modelContainer(sharedModelContainer)
     }
