@@ -11,26 +11,17 @@ struct ContentView: View {
     }
 
     var body: some View {
-        NavigationSplitView {
+        ZStack {
             if authViewModel.isAuthenticated {
                 VStack {
                     Text("Welcome, \(authViewModel.username)!")
                         .font(.title)
                 }
             } else {
-                VStack {
-                    Text("Connect to Last.fm")
-                        .font(.title)
-
-                    Button("Login with Last.fm") {
-                        authViewModel.startAuth()
-                    }
-                    .buttonStyle(.borderedProminent)
-                }
+                LoginView(modelContext: modelContext)
             }
-        } detail: {
-            Text("Select an item")
         }
+        .preferredColorScheme(.dark)
         .onOpenURL { url in
             Task {
                 await authViewModel.handleCallback(url: url)
